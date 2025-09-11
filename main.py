@@ -15,18 +15,21 @@ from dataAnalysis import graphVxValues
 from models import logisticRegressionModel
 from models import naiveBayesModel
 from models import decisionTreeModel
+from models import randomForrestModel
+from models import isolationForrestModel
+from models import neuralNetworkModel
 
 data = pd.read_csv('creditcard.csv')
 
 # print general info of data
-print("amount of transactions: ")
-print(data.shape[0])
-fraud_count = data[data['Class'] == 1].shape[0]
-print("amount of frauds: ")
-print(fraud_count)
-print("frauds/transactions = ", fraud_count/data.shape[0])
-print("amount of data: ")
-print(data.shape[1])
+# print("amount of transactions: ")
+# print(data.shape[0])
+# fraud_count = data[data['Class'] == 1].shape[0]
+# print("amount of frauds: ")
+# print(fraud_count)
+# print("frauds/transactions = ", fraud_count/data.shape[0])
+# print("amount of data: ")
+# print(data.shape[1])
 
 # convert time to 24 hour cycle and add as column
 data['timeHour24'] = (data['Time'] / 3600).round().astype(int) % 24
@@ -50,11 +53,15 @@ print("----------------------")
 
 # logisticRegressionModel(data)
 # print("----------------------")
-naiveBayesModel(data)
+# naiveBayesModel(data)
 # print("----------------------")
 # decisionTreeModel(data)
-
-
+# print("----------------------")
+# randomForrestModel(data)
+# print("----------------------")
+# isolationForrestModel(data)
+# print("----------------------")
+neuralNetworkModel(data)
 
 
 
