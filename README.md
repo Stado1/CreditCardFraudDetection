@@ -38,10 +38,12 @@ For all models there will be a train test split of 0.8/0.2.
 
 ### Logistic Regression
 Logistic regression is a simple model wiht only one tunable parameter. This parameter is the maximum amount of iterations, which is set to 1000.
+
 No fraud F1: 1.00. Fraud F1: 0.70. The ratio FP/TN = 41/57 = 0.72.
 
 ### Naïve Bayes
 Naive Bayes is also a simple modelwhere no tunable parameters are used.
+
 No fraud F1: 0.99, Fraud F1: 0.11, The ratio FP/TN = 18/80 = 0.23.
 
 ### Decision Tree
