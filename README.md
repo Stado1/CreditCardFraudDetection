@@ -37,17 +37,17 @@ The following models will be used:
 For all models there will be a train test split of 0.8/0.2.
 
 ### Logistic Regression
-Logistic regression is a simple model wiht only one tunable parameter. This parameter is the maximum amount of iterations, which is set to 1000.
+Logistic regression is a simple model, only one tunable parameter is used. This parameter is the maximum amount of iterations, which is set to 1000.
 
 No fraud F1: 1.00. Fraud F1: 0.70. The ratio FP/TN = 41/57 = 0.72.
 
 ### Naïve Bayes
-Naive Bayes is also a simple modelwhere no tunable parameters are used.
+Naive Bayes is also a simple model, no tunable parameters are used.
 
 No fraud F1: 0.99, Fraud F1: 0.11, The ratio FP/TN = 18/80 = 0.23.
 
 ### Decision Tree
-The decision tree model has one tunable parameter which is max depth. Multiple values were tried and the results can be seen in the table.
+The decision tree model will only use one tunable parameter which is max depth. Multiple values were tried and the results can be seen in the table.
 
 | Max depth | No fraud F1 | Fraud F1 | FP/TN        |
 |-----------|-------------|----------|--------------|
@@ -59,6 +59,23 @@ The decision tree model has one tunable parameter which is max depth. Multiple v
 | 15        | 1.00        | 0.77     | 22/76 = 0.29 |
 | 20        | 1.00        | 0.75     | 22/76 = 0.29 |
 | 30        | 1.00        | 0.75     | 22/76 = 0.29 |
+
+### Random Forrest
+The random forrest model will use 2 tunable parameters: number of estimators and max depth. Max depth will be set to None because in a forrest it is not likely to cause overfitting. Different value for number of estimators will be used and the results can be seen in the table. 
+
+| Num estimators | No fraud F1 | Fraud F1 | FP/TN        |
+|----------------|-------------|----------|--------------|
+| 5              | 1.00        | 0.84     | 24/74 = 0.32 |
+| 7              | 1.00        | 0.84     | 24/74 = 0.32 |
+| 10             | 1.00        | 0.84     | 25/73 = 0.34 |
+| **15**             | **1.00**        | **0.86**     | **22/76 = 0.29** |
+| 30             | 1.00        | 0.86     | 23/75 = 0.31 |
+| 60             | 1.00        | 0.86     | 23/75 = 0.31 |
+
+### Isolation Forrest
+
+
+
 
 
 
