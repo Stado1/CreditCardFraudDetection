@@ -29,7 +29,7 @@ data = pd.read_csv('creditcard.csv')
 # print(fraud_count)
 # print("frauds/transactions = ", fraud_count/data.shape[0])
 # print("amount of data: ")
-# print(data.shape[1])
+print(data.shape[1])
 
 # convert time to 24 hour cycle and add as column
 data['timeHour24'] = (data['Time'] / 3600).round().astype(int) % 24
@@ -53,7 +53,7 @@ print("----------------------")
 
 # logisticRegressionModel(data)
 # print("----------------------")
-# naiveBayesModel(data)
+naiveBayesModel(data)
 # print("----------------------")
 # decisionTreeModel(data)
 # print("----------------------")
@@ -61,7 +61,7 @@ print("----------------------")
 # print("----------------------")
 # isolationForrestModel(data)
 # print("----------------------")
-neuralNetworkModel(data)
+# neuralNetworkModel(data)
 
 
 
