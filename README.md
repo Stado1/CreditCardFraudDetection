@@ -47,9 +47,18 @@ Naive Bayes is also a simple modelwhere no tunable parameters are used.
 No fraud F1: 0.99, Fraud F1: 0.11, The ratio FP/TN = 18/80 = 0.23.
 
 ### Decision Tree
+The decision tree model has one tunable parameter which is max depth. Multiple values were tried and the results can be seen in the table.
 
-
-
+| Max depth | No fraud F1 | Fraud F1 | FP/TN        |
+|-----------|-------------|----------|--------------|
+| 5         | 1.00        | 0.84     | 21/77 = 0.27 |
+| **7**         | **1.00**        | **0.84**     | **20/78 = 0.25** |
+| **9**         | **1.00**        | **0.84**     | **20/78 = 0.25** |
+| 11        | 1.00        | 0.79     | 24/74 = 0.32 |
+| 13        | 1.00        | 0.77     | 23/75 = 0.31 |
+| 15        | 1.00        | 0.77     | 22/76 = 0.29 |
+| 20        | 1.00        | 0.75     | 22/76 = 0.29 |
+| 30        | 1.00        | 0.75     | 22/76 = 0.29 |
 
 
 
