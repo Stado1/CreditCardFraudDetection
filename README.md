@@ -51,9 +51,9 @@ The decision tree model will only use one tunable parameter which is max depth. 
 
 | Max depth | No fraud F1 | Fraud F1 | FP/TN        |
 |-----------|-------------|----------|--------------|
-| 5         | 1.00        | 0.84     | 21/77 = 0.27 |
-| **7**         | **1.00**        | **0.84**     | **20/78 = 0.25** |
-| **9**         | **1.00**        | **0.84**     | **20/78 = 0.25** |
+| 5         | 1.00        | **0.84**     | 21/77 = 0.27 |
+| 7         | 1.00        | **0.84**     | **20/78 = 0.26** |
+| 9         | 1.00        | **0.84**     | **20/78 = 0.26** |
 | 11        | 1.00        | 0.79     | 24/74 = 0.32 |
 | 13        | 1.00        | 0.77     | 23/75 = 0.31 |
 | 15        | 1.00        | 0.77     | 22/76 = 0.29 |
@@ -68,11 +68,56 @@ The random forrest model will use 2 tunable parameters: number of estimators and
 | 5              | 1.00        | 0.84     | 24/74 = 0.32 |
 | 7              | 1.00        | 0.84     | 24/74 = 0.32 |
 | 10             | 1.00        | 0.84     | 25/73 = 0.34 |
-| **15**             | **1.00**        | **0.86**     | **22/76 = 0.29** |
-| 30             | 1.00        | 0.86     | 23/75 = 0.31 |
-| 60             | 1.00        | 0.86     | 23/75 = 0.31 |
+| 15             | 1.00        | **0.86** | **22/76 = 0.29** |
+| 30             | 1.00        | **0.86** | 23/75 = 0.31 |
+| 60             | 1.00        | **0.86** | 23/75 = 0.31 |
 
 ### Isolation Forrest
+The isolation forrest will also use 2 tunable parameters: number of estimators and contamination. When the contamination is not used the results can be seen in the table.
+
+| Num estimators | No fraud F1 | Fraud F1 | FP/TN            |
+|----------------|-------------|----------|------------------|
+| 100            | 0.98        | 0.07     | 20/78 = 0.26     |
+| 200            | 0.98        | 0.07     | 18/80 = 0.23     |
+| 500            | 0.98        | 0.08     | 18/80 = 0.23     |
+| 1000           | 0.98        | 0.07     | 17/81 = 0.21     |
+| 10000          | 0.98        | 0.07     | 17/81 = 0.21     |
+
+Contamination is the estimated amount of fraud cases as a fraction of the total transaction. If this is set equal to the actual fraction: 0.00173, the results can be seen in the table.
+
+| Num estimators | No fraud F1 | Fraud F1 | FP/TN            |
+|----------------|-------------|----------|------------------|
+| 100            | **1.00**        | 0.25     | 73/25 = 2.92     |
+| 200            | **1.00**        | 0.27     | 71/27 = 2.63     |
+| 500            | **1.00**        | **0.30**     | 69/29 = 2.40     |
+| 1000           | **1.00**        | **0.30**     | 69/29 = 2.40     |
+| 10000          | **1.00**        | 0.29     | 70/28 = 2.50     |
+
+By over estimating the contamination to 0.1 the amount of false positives can be reduced at the cost of an increase in the amount of false negatives. The results can be seen in the table.
+
+
+| Num estimators | No fraud F1 | Fraud F1 | FP/TN            |
+|----------------|-------------|----------|------------------|
+| 100            | 0.95        | 0.03     | 9/89 = 0.10     |
+| 200            | 0.95        | 0.03     | 8/90 = 0.09     |
+| 500            | 0.95        | 0.03     | 8/90 = 0.09     |
+| 1000           | 0.95        | 0.03     | **7/91 = 0.08**     |
+| 10000          | 0.95        | 0.03     | 8/90 = 0.09     |
+
+
+### Neural Network
+The neural netqwork has a lot of tunable parameters, the ones that will be explored are the amount of neurons, the amount of layers and the minimum activation (I DONT KNOW IF THIS IS CORRECT TERMINOLOGY).
+The learning batch size is 512, the learing rate is 0.0001. Early stop will be used with a patience of 10.
+
+
+
+
+
+
+
+
+
+
 
 
 
