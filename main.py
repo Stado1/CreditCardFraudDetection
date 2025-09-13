@@ -21,7 +21,7 @@ from models import neuralNetworkModel
 
 data = pd.read_csv('creditcard.csv')
 
-print general info of data
+print("general info of data")
 print("amount of transactions: ")
 print(data.shape[0])
 fraud_count = data[data['Class'] == 1].shape[0]
