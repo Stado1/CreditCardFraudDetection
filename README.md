@@ -1,5 +1,5 @@
 # CreditCardFraudDetection
-This project tries different methods to find credit card fraud on the Kaggle dataset. The goal for each method is to get an as high as possible F1 score for both fraud and no fraud classes and to get an as low as possible ratio between false positives / true negatives (positive = no fraud, negative = fraud). Both measurements are used because for a fraud detection system false poistives are worse than false negatives.
+This project tries different methods to find credit card fraud on the Kaggle dataset. The goal for each method is to get an as high as possible F1 score for both fraud and no fraud classes and to get an as low as possible ratio between false positives / true negatives, int his project **positive = no fraud, negative = fraud**. Both measurements are used because for a fraud detection system false poistives are worse than false negatives.
 
 ### Necessary packages to run this code:
 - scikit-learn             1.7.1
@@ -24,8 +24,8 @@ The following models will be used:
 - Logistic regression
 - Naïve Bayes
 - Decision tree
-- Random forrest
-- Isolation forrest
+- Random forest
+- Isolation forest
 - Fully connected neural network
 
 ## Results
@@ -60,8 +60,8 @@ The decision tree model will only use one tunable parameter which is max depth. 
 | 20        | 1.00        | 0.75     | 22/76 = 0.29 |
 | 30        | 1.00        | 0.75     | 22/76 = 0.29 |
 
-### Random Forrest
-The random forrest model will use 2 tunable parameters: number of estimators and max depth. Max depth will be set to None because in a forrest it is not likely to cause overfitting. Different value for number of estimators will be used and the results can be seen in the table. 
+### Random Forest
+The random forest model will use 2 tunable parameters: number of estimators and max depth. Max depth will be set to None because in a forest it is not likely to cause overfitting. Different value for number of estimators will be used and the results can be seen in the table. 
 
 | Num estimators | No fraud F1 | Fraud F1 | FP/TN        |
 |----------------|-------------|----------|--------------|
@@ -72,8 +72,8 @@ The random forrest model will use 2 tunable parameters: number of estimators and
 | 30             | 1.00        | **0.86** | 23/75 = 0.31 |
 | 60             | 1.00        | **0.86** | 23/75 = 0.31 |
 
-### Isolation Forrest
-The isolation forrest will also use 2 tunable parameters: number of estimators and contamination. When the contamination is not used the results can be seen in the table.
+### Isolation Forest
+The isolation forest will also use 2 tunable parameters: number of estimators and contamination. When the contamination is not used the results can be seen in the table.
 
 | Num estimators | No fraud F1 | Fraud F1 | FP/TN            |
 |----------------|-------------|----------|------------------|
@@ -142,15 +142,29 @@ By lowering the classification threshold of 0.1 the amount of false positives ca
 
 
 ## Discussion and Future Research
+In this table a summary of the best of each model can be seen.
+
+| Model                           | Best fraud F1 | best FP/TN |
+|---------------------------------|---------------|----------|
+| Logistic regression             | 0.70          | 0.72     | 
+| Naïve Bayes                     | 0.11          | 0.23     | 
+| Decision tree                   | 0.84          | 0.26     | 
+| Random forest                   | 0.86          | 0.29     | 
+| Isolation forest                | 0.30          | 0.08     | 
+| Fully connected neural network  | 0.85          | 0.15     | 
+
+
+
 For every detection method the F1 score for the no fraud cases are all extremely high, in most cases 1.0. This is because the amount no fraud cases is extremely high, by just guessing that every transaction is no fraud you would also get an F1 score of about 1.0.
 
 The highest F1 score for the fraud cases is the random forrest with either 15, 30 or 60 estimators. The difference with decision trees and neural networks for this score is small.
 
 The best ratio between false positives and true negatives was achieved by isolation forrest with a very high contamination estimation. 
 
+So if the most frauds should be detected no matter what the isolation forrest is the best model. For the best F1 score a random forrest is the best choice. For best of both worlds a neural network with a low classification threshold of 0.1 and a configuration of 64-32-16 is the best choice.
 
 
-
+For future research ensemble methods can be explored. Combining different method with a voting ensemble could result in even beter models than were explored with this project.
 
 
 
