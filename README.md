@@ -106,21 +106,39 @@ By over estimating the contamination to 0.1 the amount of false positives can be
 
 
 ### Neural Network
-The neural netqwork has a lot of tunable parameters, the ones that will be explored are the amount of neurons, the amount of layers and the minimum activation (I DONT KNOW IF THIS IS CORRECT TERMINOLOGY).
+The neural netqwork has a lot of tunable parameters, the ones that will be explored are the amount of neurons, the amount of layers and the classification threshold.
 The learning batch size is 512, the learing rate is 0.0001. Early stop will be used with a patience of 10.
 
+When using a classification threshold of 0.5, a couple of different neural networks where used. The results can be seen in the table.
 
+| Hidden Layer Structure (nodes per layer) | No fraud F1 | Fraud F1 | FP/TN            |
+|------------------------------------------|-------------|----------|------------------|
+| 32                                       | 1.00        | 0.82     | 22/76 = 0.29     |
+| 64                                       | 1.00        | **0.85**     | 21/77 = 0.27     |
+| 128                                      | 1.00        | 0.84     | 22/76 = 0.29     |
+| 64-32                                    | 1.00        | 0.84     | 18/80 = 0.23     |
+| 128-64                                   | 1.00        | **0.85**     | 20/78 = 0.26     |
+| 64-32-16                                 | 1.00        | 0.84     | 20/78 = 0.26     |
+| 128-64-32                                | 1.00        | 0.82     | 21/77 = 0.27     |
 
+A couple of bigger networks were also tried with dropout on each layer. The results can be seen in the table.
 
+| Hidden Layer Structure (nodes per layer) | dropout | No fraud F1 | Fraud F1 | FP/TN            |
+|------------------------------------------|---------|-------------|----------|------------------|
+| 128-64-32                                | 0.2     | 1.00        | 0.81     | 19/79 = 0.24     |
+| 512-256-128-64-32                        | 0.3     | 1.00        | 0.81     | 21/77 = 0.27     |
+| 2048-1024-512-256-128-64-32              | 0.4     | 1.00        | 0.81     | 21/77 = 0.27     |
 
+By lowering the classification threshold of 0.1 the amount of false positives can be reduced at the cost of an increase in the amount of false negatives. The results can be seen in the table. No dropout was used here.
 
-
-
-
-
-
-
-
+| Hidden Layer Structure (nodes per layer) | No fraud F1 | Fraud F1 | FP/TN            |
+|------------------------------------------|-------------|----------|------------------|
+| 64                                       | 1.00        | 0.81     | 16/82 = 0.20     |
+| 128                                      | 1.00        | 0.81     | 14/84 = 0.17     |
+| 64-32                                    | 1.00        | 0.80     | 18/80 = 0.23     |
+| 128-64                                   | 1.00        | 0.78     | 15/83 = 0.18     |
+| 64-32-16                                 | 1.00        | 0.83     | **13/85 = 0.15**     |
+| 128-64-32                                | 1.00        | 0.74     | 28/70 = 0.40     
 
 
 
