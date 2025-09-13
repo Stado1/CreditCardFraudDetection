@@ -3,6 +3,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# takes both fraud and no fraud data, a PCA value.
+# It will then plot histograms for both PCA values in the same plot
 #1 =< x =< 28
 def graphVxValues(fraudData, noFraudData, x):
     # Plot histograms for both

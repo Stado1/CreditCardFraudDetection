@@ -36,11 +36,11 @@ def graphCorrelationAmountAndFraud(data):
 # it will plot the amount of frauds that happen per hour
 def graphCorrelationTimeAndFraud(data):
 
+    # 24 hour plot
     dataToPlot = []
-
     # loop trough each hour and find how many frauds happend at that time
     for i in range(24):
-        filterData = data[(data['timeHour'] == i)]
+        filterData = data[(data['timeHour24'] == i)]
         fraudCount = filterData[filterData['Class'] == 1].shape[0]
         dataToPlot.append(fraudCount)
 
@@ -52,7 +52,26 @@ def graphCorrelationTimeAndFraud(data):
     plt.xlabel("Time (hour)")
     plt.ylabel("Frauds")
     plt.grid(True)
-    plt.savefig("graphFraudVsTime.png")
+    plt.savefig("graphFraudVsTime24.png")
+
+
+    # 48 hour plot
+    dataToPlot = []
+    # loop trough each hour and find how many frauds happend at that time
+    for i in range(48):
+        filterData = data[(data['timeHour48'] == i)]
+        fraudCount = filterData[filterData['Class'] == 1].shape[0]
+        dataToPlot.append(fraudCount)
+
+    # make a plot and save it
+    arr = np.arange(0, 48)
+    plt.figure()
+    plt.plot(arr, dataToPlot, marker='o' )
+    plt.title("Frauds vs Time")
+    plt.xlabel("Time (hour)")
+    plt.ylabel("Frauds")
+    plt.grid(True)
+    plt.savefig("graphFraudVsTime48.png")
 
 
 
@@ -61,11 +80,11 @@ def graphCorrelationTimeAndFraud(data):
 # it will plot the amount of transactions that happen per hour
 def graphCorrelationTimeAndTransaction(data):
 
+    # 24 hour plot
     dataToPlot = []
-
     # loop trough each hour and find how many transactions happend at that time
     for i in range(24):
-        filterData = data[(data['timeHour'] == i)]
+        filterData = data[(data['timeHour24'] == i)]
         transCount = filterData.shape[0]
         dataToPlot.append(transCount)
 
@@ -77,8 +96,25 @@ def graphCorrelationTimeAndTransaction(data):
     plt.xlabel("Time (hour)")
     plt.ylabel("Transactions")
     plt.grid(True)
-    plt.savefig("graphTransactionsVsTime.png")
+    plt.savefig("graphTransactionsVsTime24.png")
 
+    # 48 hour plot
+    dataToPlot = []
+    # loop trough each hour and find how many transactions happend at that time
+    for i in range(48):
+        filterData = data[(data['timeHour48'] == i)]
+        transCount = filterData.shape[0]
+        dataToPlot.append(transCount)
+
+    # make a plot and save it
+    arr = np.arange(0, 48)
+    plt.figure()
+    plt.plot(arr, dataToPlot, marker='o' )
+    plt.title("transactions vs Time")
+    plt.xlabel("Time (hour)")
+    plt.ylabel("Transactions")
+    plt.grid(True)
+    plt.savefig("graphTransactionsVsTime48.png")
 
 
 

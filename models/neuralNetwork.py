@@ -15,63 +15,33 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
 
-class SimpleNN(nn.Module):
+# The neural network that is used
+class fraudDetectionNN(nn.Module):
     def __init__(self, input_dim):
-        super(SimpleNN, self).__init__()
-        self.fc1 = nn.Linear(input_dim, 2048)
-        self.fc2 = nn.Linear(2048, 1024)
-        self.fc3 = nn.Linear(1024, 512)
-        self.fc4 = nn.Linear(512, 256)
-        self.fc5 = nn.Linear(256, 128)
-        self.fc6 = nn.Linear(128, 64)
-        self.fc7 = nn.Linear(64, 32)
-        self.fc8 = nn.Linear(32, 1)
+        super(fraudDetectionNN, self).__init__()
+        self.fc1 = nn.Linear(input_dim, 128)
+        self.fc2 = nn.Linear(128, 64)
+        self.fc3 = nn.Linear(64, 32)
+        self.fc4 = nn.Linear(32, 1)
         self.relu = nn.ReLU()
         self.sigmoid = nn.Sigmoid()
-        self.dropout = nn.Dropout(0.4)
 
     def forward(self, x):
         x = self.relu(self.fc1(x))
-        x = self.dropout(x)
         x = self.relu(self.fc2(x))
-        x = self.dropout(x)
         x = self.relu(self.fc3(x))
-        x = self.dropout(x)
-        x = self.relu(self.fc4(x))
-        x = self.dropout(x)
-        x = self.relu(self.fc5(x))
-        x = self.dropout(x)
-        x = self.relu(self.fc6(x))
-        x = self.dropout(x)
-        x = self.relu(self.fc7(x))
-        x = self.dropout(x)
-        x = self.sigmoid(self.fc8(x))
+        x = self.sigmoid(self.fc4(x))
         return x
-
-
-# class SimpleNN(nn.Module):
-#     def __init__(self, input_dim):
-#         super(SimpleNN, self).__init__()
-#         self.fc1 = nn.Linear(input_dim, 32)
-#         self.fc2 = nn.Linear(32, 16)
-#         self.fc3 = nn.Linear(16, 1)
-#         self.relu = nn.ReLU()
-#         self.sigmoid = nn.Sigmoid()
-#
-#     def forward(self, x):
-#         x = self.relu(self.fc1(x))
-#         x = self.relu(self.fc2(x))
-#         x = self.sigmoid(self.fc3(x))
-#         return x
 
 
 def neuralNetworkModel(data):
 
+    # prepare training data
     X = data.drop(columns=["Class", "timeHour24", "Time", "timeHour48"]).values
-    # X = data.drop(columns=["Class", "Time"]).values
     y = data["Class"].values
 
 
+    # split data into train, eval and test
     X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
     )
@@ -79,7 +49,7 @@ def neuralNetworkModel(data):
     X_train, y_train, test_size=0.25, random_state=42
     )
 
-
+    # convert the data into the right format
     X_train = torch.tensor(X_train, dtype=torch.float32)
     y_train = torch.tensor(y_train, dtype=torch.float32).unsqueeze(1)  # shape (n,1)
     X_val = torch.tensor(X_val, dtype=torch.float32)
@@ -90,17 +60,14 @@ def neuralNetworkModel(data):
     train_dataset = TensorDataset(X_train, y_train)
     train_loader = DataLoader(train_dataset, batch_size=512, shuffle=True)
 
-
-
-    model = SimpleNN(input_dim=X.shape[1])
-
-    # --- Loss & Optimizer ---
+    # initialize model, loss, optimizer
+    model = fraudDetectionNN(input_dim=X.shape[1])
     criterion = nn.BCELoss()  # binary cross-entropy
     optimizer = optim.Adam(model.parameters(), lr=0.0001)
 
-    # --- Training Loop ---
+    # training loop
     epochs = 100
-    patience = 10   # stop if no improvement after 5 epochs
+    patience = 10   # early stop if no improvement after 10 epochs
     best_loss = float("inf")
     counter = 0
     for epoch in range(epochs):
@@ -113,7 +80,7 @@ def neuralNetworkModel(data):
             loss.backward()
             optimizer.step()
 
-        # Validation
+        # validation
         model.eval()
         with torch.no_grad():
             val_outputs = model(X_val)
@@ -121,7 +88,7 @@ def neuralNetworkModel(data):
 
         print(f"Epoch [{epoch+1}/{epochs}] - Validation Loss: {val_loss:.4f}")
 
-        # Check for improvement
+        # check for improvement
         if val_loss < best_loss:
             best_loss = val_loss
             counter = 0
@@ -133,13 +100,13 @@ def neuralNetworkModel(data):
                 model.load_state_dict(best_model_state)  # restore best model
                 break
 
-    # --- Evaluation ---
+    # evaluate
     model.eval()
     with torch.no_grad():
         y_pred = model(X_test)
-        y_pred = (y_pred >= 0.5).int()
+        y_pred = (y_pred >= 0.1).int()
 
-    # Convert back to numpy for sklearn metrics
+    # convert to numpy
     y_true = y_test.numpy()
     y_pred = y_pred.numpy()
 

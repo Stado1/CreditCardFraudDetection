@@ -21,46 +21,54 @@ from models import neuralNetworkModel
 
 data = pd.read_csv('creditcard.csv')
 
-# print general info of data
-# print("amount of transactions: ")
-# print(data.shape[0])
-# fraud_count = data[data['Class'] == 1].shape[0]
-# print("amount of frauds: ")
-# print(fraud_count)
-# print("frauds/transactions = ", fraud_count/data.shape[0])
-# print("amount of data: ")
+print general info of data
+print("amount of transactions: ")
+print(data.shape[0])
+fraud_count = data[data['Class'] == 1].shape[0]
+print("amount of frauds: ")
+print(fraud_count)
+print("frauds/transactions = ", fraud_count/data.shape[0])
+print("amount of data: ")
 print(data.shape[1])
 
-# convert time to 24 hour cycle and add as column
+# convert time to 24 hour and 48 hour cycle and add as columns
 data['timeHour24'] = (data['Time'] / 3600).round().astype(int) % 24
 data['timeHour48'] = (data['Time'] / 3600).round().astype(int)
-
-# print(data.sort_values(by="Time", ascending=False))
 
 
 
 print("----------------------")
+print("creating graphs")
+graphCorrelationAmountAndFraud(data)
+graphCorrelationTimeAndFraud(data)
+graphCorrelationTimeAndTransaction(data)
 
-#
-# graphCorrelationAmountAndFraud(data)
-# graphCorrelationTimeAndFraud(data)
-# graphCorrelationTimeAndTransaction(data)
-#
-# fraudData, noFraudData = splitDataBasedOnFraud(data)
-#
-# graphVxValues(fraudData, noFraudData, 14)
+fraudData, noFraudData = splitDataBasedOnFraud(data)
+graphVxValues(fraudData, noFraudData, 14)
+print("graphs saved")
 
-
+# print("----------------------")
+# print("training logistic regression model")
 # logisticRegressionModel(data)
+
 # print("----------------------")
-naiveBayesModel(data)
+# print("training naive bayes model")
+# naiveBayesModel(data)
+
 # print("----------------------")
+# print("training decision tree")
 # decisionTreeModel(data)
+
 # print("----------------------")
+# print("training random forrest")
 # randomForrestModel(data)
+
 # print("----------------------")
+# print("training isolation forrest")
 # isolationForrestModel(data)
+
 # print("----------------------")
+# print("training neural network")
 # neuralNetworkModel(data)
 
 
