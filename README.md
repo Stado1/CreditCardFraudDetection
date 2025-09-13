@@ -7,7 +7,7 @@ This project tries different methods to find credit card fraud on the Kaggle dat
 - pandas                   2.3.2
 
 ### How to run the code:
-Run the "Main.py" file.
+In the "main.py" uncomment functions you want to use. Then run the file.
 
 
 ## Workflow
@@ -139,6 +139,27 @@ By lowering the classification threshold of 0.1 the amount of false positives ca
 | 128-64                                   | 1.00        | 0.78     | 15/83 = 0.18     |
 | 64-32-16                                 | 1.00        | 0.83     | **13/85 = 0.15**     |
 | 128-64-32                                | 1.00        | 0.74     | 28/70 = 0.40     
+
+
+## Discussion and Future Research
+For every detection method the F1 score for the no fraud cases are all extremely high, in most cases 1.0. This is because the amount no fraud cases is extremely high, by just guessing that every transaction is no fraud you would also get an F1 score of about 1.0.
+
+The highest F1 score for the fraud cases is the random forrest with either 15, 30 or 60 estimators. The difference with decision trees and neural networks for this score is small.
+
+The best ratio between false positives and true negatives was achieved by isolation forrest with a very high contamination estimation. 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
