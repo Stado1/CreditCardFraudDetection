@@ -164,7 +164,7 @@ The best ratio between false positives and true negatives was achieved by isolat
 So if the most frauds should be detected no matter what the isolation forrest is the best model. For the best F1 score a random forrest is the best choice. For best of both worlds a neural network with a low classification threshold of 0.1 and a configuration of 64-32-16 is the best choice.
 
 
-For future research ensemble methods can be explored. Combining different method with a voting ensemble could result in even beter models than were explored with this project.
+For future research ensemble methods can be explored. Combining different method with a voting ensemble could result in even beter models than were explored with this project. Data resampling can also be further explored. This could lead to significant improvements due to the huge class imbalance.
 
 
 
