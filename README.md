@@ -1,5 +1,5 @@
 # CreditCardFraudDetection
-This project tries different methods to find credit card fraud on the Kaggle dataset. The goal for each method is to get an as high as possible F1 score for both fraud and no fraud classes and to get an as high as possible true negative rate (TN/(TN+FP) ). In this project **positive = no fraud** and **negative = fraud**. Both measurements are used because for a fraud detection system false poistives are worse than false negatives.
+This project tries different methods to find credit card fraud on the Kaggle dataset. The goal for each method is to get an as high as possible F1 score for both fraud and no fraud classes and to get an as high as possible true negative rate (TN/(TN+FP) ). In this project **positive = no fraud** and **negative = fraud**. Both measurements are used because for a fraud detection system false positives can be seen as worse than false negatives.
 
 ### Necessary packages to run this code:
 - scikit-learn             1.7.1
@@ -14,7 +14,8 @@ In the "main.py" uncomment functions you want to use. Then run the file.
 ### Data Preprocessing
 Before training the model some data exploration and preprocessing is done:
 - The time data is converted in the dataset. The time is converted from seconds to hours, both the total 48 hours and in a 24 hour cycle.
-- A graph of the transactions amount vs the amount of frauds is plotted
+- A graph of the transactions amount vs the amount of frauds is plotted.
+  ![Logo](graphFraudVsAmount.png)
 - Graphs of the time vs the amount of frauds is plotted.
 - Graphs of the time vs the amount of transactions is plotted.
 - Histograms of each PCA value is plotted for the fraud and no fraud data, in the same graph.
