@@ -41,7 +41,7 @@ There are 3 types of data in the datast: PCA values, transaction amount and time
 - For the transaction amount it can also be seen that frauds happened more for lower transaction amounts. So this data can also be used.
 - For the time data, the original in seconds, the 24 hours and the 48 hours, there did not seem to be a pattern. So this data will not be used.
 
-For all models there will be a train/test split of 0.8/0.2, except for the neural networks there a train/evaluation/test split of 60/20/20 will be used.
+For all models there will be a train/test split of 0.8/0.2, except for the neural networks there a train/evaluation/test split of 0.6/0.2/0.2 will be used.
 No cross validation will be used since the goal of this project is not to find the exact results but more to get an idea of how good each model performs.
 
 
