@@ -1,5 +1,5 @@
 # CreditCardFraudDetection
-This project tries different methods to find credit card fraud on the Kaggle dataset. The goal for each method is to get an as high as possible F1 score for both fraud and no fraud classes and to get an as high as possible true negative rate (TN/(TN+FN) ). In this project **positive = no fraud** and **negative = fraud**. Both measurements are used because for a fraud detection system false poistives are worse than false negatives.
+This project tries different methods to find credit card fraud on the Kaggle dataset. The goal for each method is to get an as high as possible F1 score for both fraud and no fraud classes and to get an as high as possible true negative rate (TN/(TN+FP) ). In this project **positive = no fraud** and **negative = fraud**. Both measurements are used because for a fraud detection system false poistives are worse than false negatives.
 
 ### Necessary packages to run this code:
 - scikit-learn             1.7.1
@@ -114,57 +114,57 @@ The learning batch size is 512, the learing rate is 0.0001. Early stop will be u
 
 When using a classification threshold of 0.5, a couple of different neural networks where used. The results can be seen in the table.
 
-| Hidden Layer Structure (nodes per layer) | No fraud F1 | Fraud F1 | FP/TN            |
+| Hidden Layer Structure (nodes per layer) | No fraud F1 | Fraud F1 | True negative rate  |
 |------------------------------------------|-------------|----------|------------------|
-| 32                                       | 1.00        | 0.82     | 22/76 = 0.29     |
-| 64                                       | 1.00        | **0.85**     | 21/77 = 0.27     |
-| 128                                      | 1.00        | 0.84     | 22/76 = 0.29     |
-| 64-32                                    | 1.00        | 0.84     | 18/80 = 0.23     |
-| 128-64                                   | 1.00        | **0.85**     | 20/78 = 0.26     |
-| 64-32-16                                 | 1.00        | 0.84     | 20/78 = 0.26     |
-| 128-64-32                                | 1.00        | 0.82     | 21/77 = 0.27     |
+| 32                                       | 1.00        | 0.82     | 76/76+22 = 0.76     |
+| 64                                       | 1.00        | **0.85**     | 77/77+21 = 0.79     |
+| 128                                      | 1.00        | 0.84     | 76/76+22 = 0.79     |
+| 64-32                                    | 1.00        | 0.84     | 80/80+18 = 0.82     |
+| 128-64                                   | 1.00        | **0.85**     | 78/78+20 = 0.80     |
+| 64-32-16                                 | 1.00        | 0.84     | 78/78+20 = 0.80     |
+| 128-64-32                                | 1.00        | 0.82     | 77/77+21 = 0.79     |
 
 A couple of bigger networks were also tried with dropout on each layer. The results can be seen in the table.
 
-| Hidden Layer Structure (nodes per layer) | dropout | No fraud F1 | Fraud F1 | FP/TN            |
+| Hidden Layer Structure (nodes per layer) | dropout | No fraud F1 | Fraud F1 | True negative rate   |
 |------------------------------------------|---------|-------------|----------|------------------|
-| 128-64-32                                | 0.2     | 1.00        | 0.81     | 19/79 = 0.24     |
-| 512-256-128-64-32                        | 0.3     | 1.00        | 0.81     | 21/77 = 0.27     |
-| 2048-1024-512-256-128-64-32              | 0.4     | 1.00        | 0.81     | 21/77 = 0.27     |
+| 128-64-32                                | 0.2     | 1.00        | 0.81     | 79/79+19 = 0.81     |
+| 512-256-128-64-32                        | 0.3     | 1.00        | 0.81     | 77/77+21 = 0.79     |
+| 2048-1024-512-256-128-64-32              | 0.4     | 1.00        | 0.81     | 77/77+21 = 0.79     |
 
 By lowering the classification threshold of 0.1 the amount of false positives can be reduced at the cost of an increase in the amount of false negatives. The results can be seen in the table. No dropout was used here.
 
-| Hidden Layer Structure (nodes per layer) | No fraud F1 | Fraud F1 | FP/TN            |
+| Hidden Layer Structure (nodes per layer) | No fraud F1 | Fraud F1 | True negative rate   |
 |------------------------------------------|-------------|----------|------------------|
-| 64                                       | 1.00        | 0.81     | 16/82 = 0.20     |
-| 128                                      | 1.00        | 0.81     | 14/84 = 0.17     |
-| 64-32                                    | 1.00        | 0.80     | 18/80 = 0.23     |
-| 128-64                                   | 1.00        | 0.78     | 15/83 = 0.18     |
-| 64-32-16                                 | 1.00        | 0.83     | **13/85 = 0.15**     |
-| 128-64-32                                | 1.00        | 0.74     | 28/70 = 0.40     
+| 64                                       | 1.00        | 0.81     | 82/82+16 = 0.84     |
+| 128                                      | 1.00        | 0.81     | 84/84+14 = 0.86     |
+| 64-32                                    | 1.00        | 0.80     | 80/80+18 = 0.82     |
+| 128-64                                   | 1.00        | 0.78     | 83/83+15 = 0.85     |
+| 64-32-16                                 | 1.00        | 0.83     | **85/85+13 = 0.87**     |
+| 128-64-32                                | 1.00        | 0.74     | 70/70+28 = 071.     
 
 
 ## Discussion and Future Research
 In this table a summary of the best of each model can be seen.
 
-| Model                           | Best fraud F1 | best FP/TN |
+| Model                           | Best fraud F1 | best true negative rate  |
 |---------------------------------|---------------|----------|
-| Logistic regression             | 0.70          | 0.72     | 
-| Naïve Bayes                     | 0.11          | 0.23     | 
-| Decision tree                   | 0.84          | 0.26     | 
-| Random forest                   | 0.86          | 0.29     | 
-| Isolation forest                | 0.30          | 0.08     | 
-| Fully connected neural network  | 0.85          | 0.15     | 
+| Logistic regression             | 0.70          | 0.58     | 
+| Naïve Bayes                     | 0.11          | 0.82     | 
+| Decision tree                   | 0.84          | 0.80     | 
+| Random forest                   | **0.86**          | 0.78     | 
+| Isolation forest                | 0.30          | **0.93**     | 
+| Fully connected neural network  | 0.85          | 0.87     | 
 
 
 
 For every detection method the F1 score for the no fraud cases are all extremely high, in most cases 1.0. This is because the amount no fraud cases is extremely high, by just guessing that every transaction is no fraud you would also get an F1 score of about 1.0.
 
-The highest F1 score for the fraud cases is the random forrest with either 15, 30 or 60 estimators. The difference with decision trees and neural networks for this score is small.
+The highest F1 score for the fraud cases is the random forest with either 15, 30 or 60 estimators. The difference with decision trees and neural networks for this score is small.
 
-The best ratio between false positives and true negatives was achieved by isolation forrest with a very high contamination estimation. 
+The best true negative rate was achieved by isolation forrest with a very high contamination estimation. This model does have a bad F1 score because there are a lot of false negatives, but if the goal is to find as many true negatives no matter what then this model is the best.
 
-So if the most frauds should be detected no matter what the isolation forrest is the best model. For the best F1 score a random forrest is the best choice. For best of both worlds a neural network with a low classification threshold of 0.1 and a configuration of 64-32-16 is the best choice.
+For best of both worlds a neural network with a low classification threshold of 0.1 and a configuration of 64-32-16 is the best choice, with a high true negative rate and a good F1 score.
 
 
 For future research ensemble methods can be explored. Combining different method with a voting ensemble could result in even beter models than were explored with this project. Data resampling can also be further explored. This could lead to significant improvements due to the huge class imbalance.
