@@ -17,8 +17,13 @@ Before training the model some data exploration and preprocessing is done:
 - A graph of the transactions amount vs the amount of frauds is plotted.
   ![Logo](graphFraudVsAmount.png)
 - Graphs of the time vs the amount of frauds is plotted.
+  ![Logo](graphFraudVsTime24.png)
+  ![Logo](graphFraudVsTime48.png)
 - Graphs of the time vs the amount of transactions is plotted.
-- Histograms of each PCA value is plotted for the fraud and no fraud data, in the same graph.
+  ![Logo](graphTransactionsVsTime24.png)
+  ![Logo](graphTransactionsVsTime48.png)
+- Histograms of each PCA value is plotted for the fraud and no fraud data, in the same graph. This is an example of one PCA value.
+  ![Logo](graphVvalueFraudVsNoFraud.png)
 
 ### Models
 The following models will be used:
